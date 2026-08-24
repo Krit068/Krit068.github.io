@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>张文博 · AI 产品经理</title>
+  <meta name="description" content="张文博，AI 产品经理。专注于大模型应用、智能助手与数据驱动产品的设计与落地。" />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-light: #1e293b;
+      --card: #1e293b;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-2: #a78bfa;
+      --border: rgba(148, 163, 184, 0.15);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* 导航栏 */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 5%;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s;
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    /* 首屏 Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 6rem 5% 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.15), transparent 70%);
+      top: -200px;
+      right: -200px;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(167, 139, 250, 0.15), transparent 70%);
+      bottom: -150px;
+      left: -150px;
+      pointer-events: none;
+    }
+
+    .avatar {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 3.2rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 0 60px rgba(56, 189, 248, 0.4);
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      z-index: 1;
+    }
+
+    .hero .highlight {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero .subtitle {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      z-index: 1;
+    }
+
+    .hero .intro {
+      max-width: 620px;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      z-index: 1;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+      z-index: 1;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #0f172a;
+      box-shadow: 0 4px 20px rgba(56, 189, 248, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(56, 189, 248, 0.5);
+    }
+
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--text);
+      margin-left: 1rem;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* 通用章节 */
+    section {
+      padding: 5rem 5%;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: "";
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      margin: 1rem auto 0;
+      border-radius: 3px;
+    }
+
+    /* 关于我 */
+    .about {
+      background: var(--bg-light);
+    }
+
+    .about-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .about-stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-label {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* 技能 */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .skill-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all 0.3s;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.15);
+    }
+
+    .skill-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .skill-card h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    .skill-card p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .skill-bar {
+      width: 100%;
+      height: 8px;
+      background: rgba(148, 163, 184, 0.2);
+      border-radius: 4px;
+      margin-top: 1rem;
+      overflow: hidden;
+    }
+
+    .skill-bar-fill {
+      height: 100%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border-radius: 4px;
+      width: 0;
+      transition: width 1.2s ease;
+    }
+
+    /* 项目 */
+    .projects {
+      background: var(--bg-light);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all 0.3s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent-2);
+      box-shadow: 0 10px 30px rgba(167, 139, 250, 0.15);
+    }
+
+    .project-tag {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent);
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-card h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    .project-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* 联系 */
+    .contact {
+      text-align: center;
+    }
+
+    .contact-text {
+      color: var(--text-muted);
+      max-width: 500px;
+      margin: 0 auto 2rem;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.3s;
+    }
+
+    .contact-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    /* 页脚 */
+    footer {
+      text-align: center;
+      padding: 2rem 5%;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* 动画 */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .btn-outline {
+        margin-left: 0;
+        margin-top: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <div class="logo">张文博</div>
+    <ul class="nav-links">
+      <li><a href="#home">首页</a></li>
+      <li><a href="#about">关于</a></li>
+      <li><a href="#skills">技能</a></li>
+      <li><a href="#projects">项目</a></li>
+      <li><a href="#contact">联系</a></li>
+    </ul>
+  </nav>
+
+  <!-- 首屏 -->
+  <header class="hero" id="home">
+    <div class="avatar">博</div>
+    <h1>你好，我是 <span class="highlight">张文博</span></h1>
+    <p class="subtitle">AI 产品经理</p>
+    <p class="intro">
+      专注于大模型应用、智能助手与数据驱动产品的设计与落地。
+      相信好的 AI 产品应该「懂技术、懂用户、懂商业」，让复杂的技术变成简单好用的体验。
+    </p>
+    <div>
+      <a href="#projects" class="btn btn-primary">查看作品</a>
+      <a href="#contact" class="btn btn-outline">联系我</a>
+    </div>
+  </header>
+
+  <!-- 关于我 -->
+  <section class="about" id="about">
+    <h2 class="section-title">关于我</h2>
+    <div class="about-content">
+      <p>
+        我是一名 AI 产品经理，致力于把前沿的 AI 技术转化为用户真正需要、愿意持续使用的产品。
+        拥有从 0 到 1 打造大模型应用的完整经验，擅长需求洞察、产品规划、跨团队协作与数据驱动的迭代优化。
+        我相信，最好的 AI 产品不是炫技，而是「悄无声息地解决问题」。
+      </p>
+      <div class="about-stats">
+        <div class="stat">
+          <div class="stat-number">3+</div>
+          <div class="stat-label">年 AI 产品经验</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">10+</div>
+          <div class="stat-label">落地产品</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">100W+</div>
+          <div class="stat-label">服务用户</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 技能 -->
+  <section id="skills">
+    <h2 class="section-title">我的能力</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">📋</div>
+        <h3>产品规划</h3>
+        <p>需求分析、PRD 撰写、产品路线图、商业模式设计</p>
+        <div class="skill-bar"><div class="skill-bar-fill" data-width="95%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🤖</div>
+        <h3>AI 技术理解</h3>
+        <p>LLM、RAG、Agent、Prompt 工程、模型评测</p>
+        <div class="skill-bar"><div class="skill-bar-fill" data-width="85%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📊</div>
+        <h3>数据分析</h3>
+        <p>SQL、Python、用户行为分析、数据驱动决策</p>
+        <div class="skill-bar"><div class="skill-bar-fill" data-width="80%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🎯</div>
+        <h3>用户研究</h3>
+        <p>用户访谈、可用性测试、竞品分析、需求验证</p>
+        <div class="skill-bar"><div class="skill-bar-fill" data-width="85%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🎨</div>
+        <h3>原型设计</h3>
+        <p>Figma、Axure、交互设计、设计评审</p>
+        <div class="skill-bar"><div class="skill-bar-fill" data-width="80%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🚀</div>
+        <h3>项目管理</h3>
+        <p>敏捷开发、Scrum、跨团队协作、版本迭代管理</p>
+        <div class="skill-bar"><div class="skill-bar-fill" data-width="90%"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 项目 -->
+  <section class="projects" id="projects">
+    <h2 class="section-title">精选项目</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <span class="project-tag">大模型应用</span>
+        <h3>AI 智能助手平台</h3>
+        <p>从 0 到 1 打造企业级智能助手，集成 RAG 知识库与多轮对话能力，显著提升团队工作效率。</p>
+        <a href="#" class="project-link">了解更多 →</a>
+      </div>
+      <div class="project-card">
+        <span class="project-tag">RAG 系统</span>
+        <h3>企业知识库问答</h3>
+        <p>基于 RAG 架构的企业知识问答系统，支持多格式文档解析与精准检索，回答准确率达 90%+。</p>
+        <a href="#" class="project-link">了解更多 →</a>
+      </div>
+      <div class="project-card">
+        <span class="project-tag">数据产品</span>
+        <h3>AI 数据分析工具</h3>
+        <p>面向业务人员的自然语言数据分析产品，让非技术用户也能通过对话轻松洞察数据价值。</p>
+        <a href="#" class="project-link">了解更多 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 联系 -->
+  <section class="contact" id="contact">
+    <h2 class="section-title">联系我</h2>
+    <p class="contact-text">
+      如果你有 AI 产品的想法、合作机会，或者想一起聊聊产品与技术的结合，欢迎随时联系我！
+    </p>
+    <div class="contact-links">
+      <a href="mailto:mornoxborn89@gmail.com" class="contact-link">📧 邮箱</a>
+      <a href="https://github.com/mornoxborn89-lang" target="_blank" class="contact-link">💬 GitHub</a>
+      <a href="https://cli.github.com/" target="_blank" class="contact-link">🛠️ GitHub CLI</a>
+      <a href="#" class="contact-link">💼 领英</a>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer>
+    <p>© 2025 张文博 · 用 ❤️ 打造</p>
+  </footer>
+
+  <script>
+    // 滚动渐入动画 + 技能条动画
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            entry.target.querySelectorAll(".skill-bar-fill").forEach((bar) => {
+              bar.style.width = bar.dataset.width;
+            });
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    document.querySelectorAll(".fade-in, .skill-card, .project-card, .about, .contact").forEach((el) => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
