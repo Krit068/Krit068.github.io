@@ -1,6 +1,6 @@
 # 张文博 · AI 产品经理个人网站
 
-展示个人介绍、Xloun 产品、Skills 技能包、近期文章与联系方式。
+展示个人介绍、Xloun、马后炮、AssetForge AI、《我的大学》、镜界 Studio、Skills 技能包、近期文章与联系方式。
 
 ## 技术栈
 
@@ -11,7 +11,7 @@
 
 ## 在线访问
 
-[https://krit068.github.io/mornoxborn89-lang.github.io/](https://krit068.github.io/mornoxborn89-lang.github.io/)
+[https://krit068.github.io/](https://krit068.github.io/)
 
 ## 本地运行
 
