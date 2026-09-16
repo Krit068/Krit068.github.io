@@ -327,6 +327,8 @@
       border-radius: 16px;
       padding: 2rem;
       transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
     }
 
     .project-card:hover {
@@ -353,6 +355,7 @@
       color: var(--text-muted);
       font-size: 0.95rem;
       margin-bottom: 1rem;
+      flex: 1;
     }
 
     .project-link {
@@ -360,6 +363,15 @@
       text-decoration: none;
       font-size: 0.9rem;
       font-weight: 600;
+    }
+
+    .project-link:hover {
+      color: var(--accent-2);
+    }
+
+    .project-link.is-local {
+      color: var(--text-muted);
+      cursor: default;
     }
 
     /* 联系 */
@@ -538,22 +550,34 @@
     <h2 class="section-title">精选项目</h2>
     <div class="projects-grid">
       <div class="project-card">
-        <span class="project-tag">大模型应用</span>
-        <h3>AI 智能助手平台</h3>
-        <p>从 0 到 1 打造企业级智能助手，集成 RAG 知识库与多轮对话能力，显著提升团队工作效率。</p>
-        <a href="#" class="project-link">了解更多 →</a>
+        <span class="project-tag">AI 时间管理</span>
+        <h3>马后炮</h3>
+        <p>一句话记录时间估算，到期核对实际用时，通过历史参考、个人偏差画像与 3D 判断星图帮助用户持续提升判断力。</p>
+        <a href="https://github.com/Krit068/mahoupao" target="_blank" rel="noopener noreferrer" class="project-link">查看项目 →</a>
       </div>
       <div class="project-card">
-        <span class="project-tag">RAG 系统</span>
-        <h3>企业知识库问答</h3>
-        <p>基于 RAG 架构的企业知识问答系统，支持多格式文档解析与精准检索，回答准确率达 90%+。</p>
-        <a href="#" class="project-link">了解更多 →</a>
+        <span class="project-tag">AI 漫剧创作</span>
+        <h3>镜界 Studio</h3>
+        <p>面向 AI 漫剧生产的统一工作台，覆盖对话式策划、剧本版本、角色与分镜资产、关键帧生成、视频合成和任务恢复。</p>
+        <span class="project-link is-local">本地开发版</span>
       </div>
       <div class="project-card">
-        <span class="project-tag">数据产品</span>
-        <h3>AI 数据分析工具</h3>
-        <p>面向业务人员的自然语言数据分析产品，让非技术用户也能通过对话轻松洞察数据价值。</p>
-        <a href="#" class="project-link">了解更多 →</a>
+        <span class="project-tag">AI 3D 生成</span>
+        <h3>AssetForge AI</h3>
+        <p>面向游戏开发者的 AI 3D 素材工作台，支持文字或参考图生成、概念确认、在线预览、技术质检与 GLB 导出。</p>
+        <a href="https://github.com/Krit068/assetforge-ai" target="_blank" rel="noopener noreferrer" class="project-link">查看项目 →</a>
+      </div>
+      <div class="project-card">
+        <span class="project-tag">RAG 长期记忆</span>
+        <h3>Xloun</h3>
+        <p>可自托管的 AI 角色对话应用，将流式对话、长期记忆、角色管理、图片生成与记忆引用解释整合进同一空间。</p>
+        <a href="https://github.com/Krit068/Xloun" target="_blank" rel="noopener noreferrer" class="project-link">查看项目 →</a>
+      </div>
+      <div class="project-card">
+        <span class="project-tag">剧情生活模拟</span>
+        <h3>《我的大学》</h3>
+        <p>AI 辅助创作的原创横版 2D 剧情生活模拟游戏，围绕时间、体力、资金、关系与公共空间展开四学年选择。</p>
+        <a href="https://github.com/Krit068/my-university" target="_blank" rel="noopener noreferrer" class="project-link">查看项目 →</a>
       </div>
     </div>
   </section>
@@ -565,8 +589,8 @@
       如果你有 AI 产品的想法、合作机会，或者想一起聊聊产品与技术的结合，欢迎随时联系我！
     </p>
     <div class="contact-links">
-      <a href="mailto:mornoxborn89@gmail.com" class="contact-link">📧 邮箱</a>
-      <a href="https://github.com/mornoxborn89-lang" target="_blank" class="contact-link">💬 GitHub</a>
+      <a href="mailto:tablercockett@gmail.com" class="contact-link">📧 tablercockett@gmail.com</a>
+      <a href="https://github.com/Krit068" target="_blank" rel="noopener noreferrer" class="contact-link">💬 GitHub</a>
       <a href="https://cli.github.com/" target="_blank" class="contact-link">🛠️ GitHub CLI</a>
       <a href="#" class="contact-link">💼 领英</a>
     </div>
@@ -574,7 +598,7 @@
 
   <!-- 页脚 -->
   <footer>
-    <p>© 2025 张文博 · 用 ❤️ 打造</p>
+    <p>© 2026 张文博 · 用 ❤️ 打造</p>
   </footer>
 
   <script>

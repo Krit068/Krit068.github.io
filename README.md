@@ -10,7 +10,7 @@ AI 产品经理的个人主页，展示个人介绍、能力与精选项目。
 
 ## 在线访问
 
-[https://mornoxborn89-lang.github.io](https://mornoxborn89-lang.github.io)
+[https://krit068.github.io](https://krit068.github.io)
 
 ## 本地运行
 
