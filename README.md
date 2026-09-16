@@ -1,6 +1,6 @@
 # 张文博 · AI 产品经理个人网站
 
-展示个人介绍、Xloun、马后炮、AssetForge AI、《我的大学》、镜界 Studio、Skills 技能包、近期文章与联系方式。
+展示个人介绍、AssetForge AI、镜界 Studio、马后炮、《我的大学》、Xloun、Skills 技能包、近期文章与联系方式。五个项目均采用大幅产品案例版式。
 
 ## 技术栈
 
