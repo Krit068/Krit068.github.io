@@ -1,625 +1,248 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>张文博 · AI 产品经理</title>
-  <meta name="description" content="张文博，AI 产品经理。专注于大模型应用、智能助手与数据驱动产品的设计与落地。" />
-  <style>
-    :root {
-      --bg: #0f172a;
-      --bg-light: #1e293b;
-      --card: #1e293b;
-      --text: #e2e8f0;
-      --text-muted: #94a3b8;
-      --accent: #38bdf8;
-      --accent-2: #a78bfa;
-      --border: rgba(148, 163, 184, 0.15);
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f3efe6" />
+    <meta
+      name="description"
+      content="张文博，AI 产品经理。记录企业 AI 产品落地中的方法与实践，让 AI 从 Demo 走向规模化。"
+    />
+    <meta property="og:title" content="张文博 · AI 产品经理" />
+    <meta
+      property="og:description"
+      content="智能体、情境工程、线束工程、RAG、Dify Workflow 与 AI 产品原型。"
+    />
+    <title>张文博 · AI 产品经理</title>
+    <link rel="icon" href="assets/xloun-logo.png" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="scroll-progress" aria-hidden="true"><span></span></div>
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <header class="site-header shell">
+      <a class="brand" href="#top" aria-label="回到首页">
+        <span class="brand-mark">ZW</span>
+        <span><strong>张文博</strong><small>AI PRODUCT</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span></span><span></span>
+        <span class="sr-only">打开导航</span>
+      </button>
+      <nav id="site-nav" class="nav-links" aria-label="主导航">
+        <a href="#about">关于</a>
+        <a href="#work">项目</a>
+        <a href="#skills">Skills</a>
+        <a href="#writing">文章</a>
+        <a href="#contact">联系</a>
+      </nav>
+    </header>
 
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
-        "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
-
-    /* 导航栏 */
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 5%;
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      transition: all 0.3s;
-    }
-
-    .logo {
-      font-size: 1.4rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.95rem;
-      transition: color 0.3s;
-    }
-
-    .nav-links a:hover {
-      color: var(--accent);
-    }
-
-    /* 首屏 Hero */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 6rem 5% 4rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(56, 189, 248, 0.15), transparent 70%);
-      top: -200px;
-      right: -200px;
-      pointer-events: none;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      width: 500px;
-      height: 500px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(167, 139, 250, 0.15), transparent 70%);
-      bottom: -150px;
-      left: -150px;
-      pointer-events: none;
-    }
-
-    .avatar {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 3.2rem;
-      font-weight: 700;
-      color: #0f172a;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 0 60px rgba(56, 189, 248, 0.4);
-    }
-
-    .hero h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-      z-index: 1;
-    }
-
-    .hero .highlight {
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero .subtitle {
-      font-size: 1.2rem;
-      color: var(--text-muted);
-      margin-bottom: 1rem;
-      z-index: 1;
-    }
-
-    .hero .intro {
-      max-width: 620px;
-      color: var(--text-muted);
-      margin-bottom: 2rem;
-      z-index: 1;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 0.8rem 2rem;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s;
-      cursor: pointer;
-      border: none;
-      font-size: 1rem;
-      z-index: 1;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: #0f172a;
-      box-shadow: 0 4px 20px rgba(56, 189, 248, 0.4);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 30px rgba(56, 189, 248, 0.5);
-    }
-
-    .btn-outline {
-      border: 1px solid var(--border);
-      color: var(--text);
-      margin-left: 1rem;
-    }
-
-    .btn-outline:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    /* 通用章节 */
-    section {
-      padding: 5rem 5%;
-    }
-
-    .section-title {
-      font-size: 2rem;
-      text-align: center;
-      margin-bottom: 3rem;
-      position: relative;
-    }
-
-    .section-title::after {
-      content: "";
-      display: block;
-      width: 60px;
-      height: 3px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      margin: 1rem auto 0;
-      border-radius: 3px;
-    }
-
-    /* 关于我 */
-    .about {
-      background: var(--bg-light);
-    }
-
-    .about-content {
-      max-width: 800px;
-      margin: 0 auto;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 1.1rem;
-    }
-
-    .about-stats {
-      display: flex;
-      justify-content: center;
-      gap: 3rem;
-      margin-top: 3rem;
-      flex-wrap: wrap;
-    }
-
-    .stat {
-      text-align: center;
-    }
-
-    .stat-number {
-      font-size: 2.5rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .stat-label {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    /* 技能 */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2rem;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .skill-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 2rem;
-      transition: all 0.3s;
-    }
-
-    .skill-card:hover {
-      transform: translateY(-5px);
-      border-color: var(--accent);
-      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.15);
-    }
-
-    .skill-icon {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .skill-card h3 {
-      margin-bottom: 0.5rem;
-    }
-
-    .skill-card p {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    .skill-bar {
-      width: 100%;
-      height: 8px;
-      background: rgba(148, 163, 184, 0.2);
-      border-radius: 4px;
-      margin-top: 1rem;
-      overflow: hidden;
-    }
-
-    .skill-bar-fill {
-      height: 100%;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      border-radius: 4px;
-      width: 0;
-      transition: width 1.2s ease;
-    }
-
-    /* 项目 */
-    .projects {
-      background: var(--bg-light);
-    }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .project-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 2rem;
-      transition: all 0.3s;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .project-card:hover {
-      transform: translateY(-5px);
-      border-color: var(--accent-2);
-      box-shadow: 0 10px 30px rgba(167, 139, 250, 0.15);
-    }
-
-    .project-tag {
-      display: inline-block;
-      padding: 0.3rem 0.8rem;
-      border-radius: 20px;
-      background: rgba(56, 189, 248, 0.1);
-      color: var(--accent);
-      font-size: 0.8rem;
-      margin-bottom: 1rem;
-    }
-
-    .project-card h3 {
-      margin-bottom: 0.5rem;
-    }
-
-    .project-card p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 1rem;
-      flex: 1;
-    }
-
-    .project-link {
-      color: var(--accent);
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    .project-link:hover {
-      color: var(--accent-2);
-    }
-
-    .project-link.is-local {
-      color: var(--text-muted);
-      cursor: default;
-    }
-
-    /* 联系 */
-    .contact {
-      text-align: center;
-    }
-
-    .contact-text {
-      color: var(--text-muted);
-      max-width: 500px;
-      margin: 0 auto 2rem;
-    }
-
-    .contact-links {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .contact-link {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.8rem 1.5rem;
-      border-radius: 50px;
-      border: 1px solid var(--border);
-      text-decoration: none;
-      color: var(--text);
-      transition: all 0.3s;
-    }
-
-    .contact-link:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: translateY(-3px);
-    }
-
-    /* 页脚 */
-    footer {
-      text-align: center;
-      padding: 2rem 5%;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      border-top: 1px solid var(--border);
-    }
-
-    /* 动画 */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* 响应式 */
-    @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 2.2rem;
-      }
-
-      .nav-links {
-        gap: 1rem;
-      }
-
-      .btn-outline {
-        margin-left: 0;
-        margin-top: 0.5rem;
-      }
-    }
-  </style>
-</head>
-<body>
-  <!-- 导航栏 -->
-  <nav class="navbar">
-    <div class="logo">张文博</div>
-    <ul class="nav-links">
-      <li><a href="#home">首页</a></li>
-      <li><a href="#about">关于</a></li>
-      <li><a href="#skills">技能</a></li>
-      <li><a href="#projects">项目</a></li>
-      <li><a href="#contact">联系</a></li>
-    </ul>
-  </nav>
-
-  <!-- 首屏 -->
-  <header class="hero" id="home">
-    <div class="avatar">博</div>
-    <h1>你好，我是 <span class="highlight">张文博</span></h1>
-    <p class="subtitle">AI 产品经理</p>
-    <p class="intro">
-      专注于大模型应用、智能助手与数据驱动产品的设计与落地。
-      相信好的 AI 产品应该「懂技术、懂用户、懂商业」，让复杂的技术变成简单好用的体验。
-    </p>
-    <div>
-      <a href="#projects" class="btn btn-primary">查看作品</a>
-      <a href="#contact" class="btn btn-outline">联系我</a>
-    </div>
-  </header>
-
-  <!-- 关于我 -->
-  <section class="about" id="about">
-    <h2 class="section-title">关于我</h2>
-    <div class="about-content">
-      <p>
-        我是一名 AI 产品经理，致力于把前沿的 AI 技术转化为用户真正需要、愿意持续使用的产品。
-        拥有从 0 到 1 打造大模型应用的完整经验，擅长需求洞察、产品规划、跨团队协作与数据驱动的迭代优化。
-        我相信，最好的 AI 产品不是炫技，而是「悄无声息地解决问题」。
-      </p>
-      <div class="about-stats">
-        <div class="stat">
-          <div class="stat-number">3+</div>
-          <div class="stat-label">年 AI 产品经验</div>
+    <main id="top">
+      <section class="hero shell" aria-labelledby="hero-title">
+        <div class="hero-copy reveal">
+          <p class="eyebrow"><span class="status-dot"></span> AI 产品经理 · PRODUCT / PRACTICE / 2026</p>
+          <h1 id="hero-title"><span>张文博</span><em>AI 产品落地者</em></h1>
+          <p class="hero-intro">
+            记录企业 AI 产品落地中的方法与实践，覆盖智能体、情境工程、线束工程、RAG、
+            Dify Workflow 与 AI 产品原型，推动企业 AI 从 Demo 走向规模化。
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#work">查看我的工作 <span>↘</span></a>
+            <a class="button button-quiet" href="mailto:mornoxborn89@gmail.com">发邮件 <span>↗</span></a>
+          </div>
         </div>
-        <div class="stat">
-          <div class="stat-number">10+</div>
-          <div class="stat-label">落地产品</div>
+
+        <div class="hero-board reveal" aria-label="工作主题：Build, Validate, Scale">
+          <div class="board-meta"><span>ZW / AI PM</span><span>FIELD NOTES 2026</span></div>
+          <div class="cube-field" aria-hidden="true"></div>
+          <div class="board-title" aria-hidden="true">
+            <span>BUILD</span><span>VALIDATE</span><span>SCALE</span>
+          </div>
+          <div class="board-index">
+            <span><i>01</i>Agent</span><span><i>02</i>RAG</span>
+            <span><i>03</i>Workflow</span><span><i>04</i>Prototype</span>
+          </div>
         </div>
-        <div class="stat">
-          <div class="stat-number">100W+</div>
-          <div class="stat-label">服务用户</div>
+      </section>
+
+      <div class="manifest" aria-label="专业关键词">
+        <div class="manifest-track">
+          <span>AI AGENT</span><i>✦</i><span>CONTEXT ENGINEERING</span><i>✦</i>
+          <span>HARNESS ENGINEERING</span><i>✦</i><span>RAG</span><i>✦</i>
+          <span>DIFY WORKFLOW</span><i>✦</i><span>AI PROTOTYPING</span><i>✦</i>
+          <span aria-hidden="true">AI AGENT</span><i aria-hidden="true">✦</i>
+          <span aria-hidden="true">CONTEXT ENGINEERING</span><i aria-hidden="true">✦</i>
+          <span aria-hidden="true">HARNESS ENGINEERING</span><i aria-hidden="true">✦</i>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- 技能 -->
-  <section id="skills">
-    <h2 class="section-title">我的能力</h2>
-    <div class="skills-grid">
-      <div class="skill-card">
-        <div class="skill-icon">📋</div>
-        <h3>产品规划</h3>
-        <p>需求分析、PRD 撰写、产品路线图、商业模式设计</p>
-        <div class="skill-bar"><div class="skill-bar-fill" data-width="95%"></div></div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon">🤖</div>
-        <h3>AI 技术理解</h3>
-        <p>LLM、RAG、Agent、Prompt 工程、模型评测</p>
-        <div class="skill-bar"><div class="skill-bar-fill" data-width="85%"></div></div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon">📊</div>
-        <h3>数据分析</h3>
-        <p>SQL、Python、用户行为分析、数据驱动决策</p>
-        <div class="skill-bar"><div class="skill-bar-fill" data-width="80%"></div></div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon">🎯</div>
-        <h3>用户研究</h3>
-        <p>用户访谈、可用性测试、竞品分析、需求验证</p>
-        <div class="skill-bar"><div class="skill-bar-fill" data-width="85%"></div></div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon">🎨</div>
-        <h3>原型设计</h3>
-        <p>Figma、Axure、交互设计、设计评审</p>
-        <div class="skill-bar"><div class="skill-bar-fill" data-width="80%"></div></div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon">🚀</div>
-        <h3>项目管理</h3>
-        <p>敏捷开发、Scrum、跨团队协作、版本迭代管理</p>
-        <div class="skill-bar"><div class="skill-bar-fill" data-width="90%"></div></div>
-      </div>
-    </div>
-  </section>
+      <section id="about" class="section shell about-section">
+        <div class="section-heading reveal">
+          <p class="kicker">01 / PROFILE</p>
+          <h2>把技术能力，<br />变成可持续的产品价值。</h2>
+        </div>
+        <div class="about-grid">
+          <div class="about-copy reveal">
+            <p class="lead">
+              我关注的不是“能不能做一个 Demo”，而是它能否被真实用户理解、使用、信任，并稳定地进入业务流程。
+            </p>
+            <p>
+              工作中，我会把模糊的业务机会拆成用户任务、智能体契约、数据与工具链、评测标准和迭代节奏；
+              在产品、设计与工程之间建立一条能够持续交付的共同语言。
+            </p>
+          </div>
+          <div class="method-map reveal" aria-label="AI 产品落地方法">
+            <div class="map-head"><span>DELIVERY MAP</span><span>FROM IDEA TO SCALE</span></div>
+            <ol>
+              <li><span>01</span><strong>发现问题</strong><small>场景、用户与价值边界</small></li>
+              <li><span>02</span><strong>定义系统</strong><small>Agent、Context 与工具契约</small></li>
+              <li><span>03</span><strong>验证体验</strong><small>原型、评测与 Bad Case</small></li>
+              <li><span>04</span><strong>规模交付</strong><small>Workflow、治理与持续迭代</small></li>
+            </ol>
+          </div>
+        </div>
+      </section>
 
-  <!-- 项目 -->
-  <section class="projects" id="projects">
-    <h2 class="section-title">精选项目</h2>
-    <div class="projects-grid">
-      <div class="project-card">
-        <span class="project-tag">AI 时间管理</span>
-        <h3>马后炮</h3>
-        <p>一句话记录时间估算，到期核对实际用时，通过历史参考、个人偏差画像与 3D 判断星图帮助用户持续提升判断力。</p>
-        <a href="https://github.com/Krit068/mahoupao" target="_blank" rel="noopener noreferrer" class="project-link">查看项目 →</a>
-      </div>
-      <div class="project-card">
-        <span class="project-tag">AI 漫剧创作</span>
-        <h3>镜界 Studio</h3>
-        <p>面向 AI 漫剧生产的统一工作台，覆盖对话式策划、剧本版本、角色与分镜资产、关键帧生成、视频合成和任务恢复。</p>
-        <span class="project-link is-local">本地开发版</span>
-      </div>
-      <div class="project-card">
-        <span class="project-tag">AI 3D 生成</span>
-        <h3>AssetForge AI</h3>
-        <p>面向游戏开发者的 AI 3D 素材工作台，支持文字或参考图生成、概念确认、在线预览、技术质检与 GLB 导出。</p>
-        <a href="https://github.com/Krit068/assetforge-ai" target="_blank" rel="noopener noreferrer" class="project-link">查看项目 →</a>
-      </div>
-      <div class="project-card">
-        <span class="project-tag">RAG 长期记忆</span>
-        <h3>Xloun</h3>
-        <p>可自托管的 AI 角色对话应用，将流式对话、长期记忆、角色管理、图片生成与记忆引用解释整合进同一空间。</p>
-        <a href="https://github.com/Krit068/Xloun" target="_blank" rel="noopener noreferrer" class="project-link">查看项目 →</a>
-      </div>
-      <div class="project-card">
-        <span class="project-tag">剧情生活模拟</span>
-        <h3>《我的大学》</h3>
-        <p>AI 辅助创作的原创横版 2D 剧情生活模拟游戏，围绕时间、体力、资金、关系与公共空间展开四学年选择。</p>
-        <a href="https://github.com/Krit068/my-university" target="_blank" rel="noopener noreferrer" class="project-link">查看项目 →</a>
-      </div>
-    </div>
-  </section>
+      <section id="work" class="section work-section">
+        <div class="shell">
+          <div class="section-heading heading-row reveal">
+            <div><p class="kicker">02 / PRODUCT</p><h2>项目产品</h2></div>
+            <p>从产品判断到可运行系统，记录一项 AI 产品如何长出来。</p>
+          </div>
 
-  <!-- 联系 -->
-  <section class="contact" id="contact">
-    <h2 class="section-title">联系我</h2>
-    <p class="contact-text">
-      如果你有 AI 产品的想法、合作机会，或者想一起聊聊产品与技术的结合，欢迎随时联系我！
-    </p>
-    <div class="contact-links">
-      <a href="mailto:tablercockett@gmail.com" class="contact-link">📧 tablercockett@gmail.com</a>
-      <a href="https://github.com/Krit068" target="_blank" rel="noopener noreferrer" class="contact-link">💬 GitHub</a>
-      <a href="https://cli.github.com/" target="_blank" class="contact-link">🛠️ GitHub CLI</a>
-      <a href="#" class="contact-link">💼 领英</a>
-    </div>
-  </section>
+          <article class="xloun-card reveal">
+            <div class="xloun-copy">
+              <div class="product-topline">
+                <img src="assets/xloun-logo.png" width="58" height="58" alt="Xloun 标志" />
+                <span>INDEPENDENT PRODUCT / IN PROGRESS</span>
+              </div>
+              <p class="product-no">PRODUCT 01</p>
+              <h3>Xloun</h3>
+              <p class="xloun-slogan">让 TA 成为真正了解你的朋友。</p>
+              <p class="product-description">
+                一款安静、轻量、可自托管的 AI 情感陪伴产品。通过角色级长期记忆、现实时间注入与多模型能力，
+                让关系在多轮、跨日和跨会话中保持连续，同时把数据留在用户自己的设备或服务器。
+              </p>
+              <ul class="tag-list" aria-label="Xloun 关键能力">
+                <li>长期记忆</li><li>角色系统</li><li>现实时间</li><li>AI 生图</li><li>数据自持有</li>
+              </ul>
+              <div class="product-facts">
+                <span><small>ROLE</small>产品定义 / PRD / 原型</span>
+                <span><small>STACK</small>Next.js · React · SQLite</span>
+              </div>
+            </div>
+            <figure class="xloun-visual">
+              <div class="visual-label"><span>PRODUCT PREVIEW</span><span>01—05</span></div>
+              <img src="assets/xloun-home.png" alt="Xloun 产品首页预览" />
+              <figcaption>
+                <span>Quiet relationship space</span>
+                <span>Self-hosted / Memory-first</span>
+              </figcaption>
+            </figure>
+          </article>
+        </div>
+      </section>
 
-  <!-- 页脚 -->
-  <footer>
-    <p>© 2026 张文博 · 用 ❤️ 打造</p>
-  </footer>
+      <section id="skills" class="section shell skills-section">
+        <div class="section-heading heading-row reveal">
+          <div><p class="kicker">03 / TOOLKIT</p><h2>Skills 技能包</h2></div>
+          <p>把反复出现的复杂任务，沉淀为可复用、可验证、可交付的工作流。</p>
+        </div>
 
-  <script>
-    // 滚动渐入动画 + 技能条动画
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            entry.target.querySelectorAll(".skill-bar-fill").forEach((bar) => {
-              bar.style.width = bar.dataset.width;
-            });
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
+        <div class="skill-deck">
+          <article class="skill-card reveal" data-accent="red">
+            <div class="skill-card-head"><span>SKILL / 01</span><span>PRODUCT RESEARCH</span></div>
+            <div class="skill-glyph">证</div>
+            <h3>通用产品拆解</h3>
+            <p>基于可验证证据，还原用户旅程、智能体契约、工具状态、数据流与产品架构，明确事实、推断与未知。</p>
+            <div class="skill-footer"><span>Evidence</span><span>Journey</span><span>Architecture</span></div>
+          </article>
 
-    document.querySelectorAll(".fade-in, .skill-card, .project-card, .about, .contact").forEach((el) => {
-      observer.observe(el);
-    });
-  </script>
-</body>
+          <article class="skill-card reveal" data-accent="blue">
+            <div class="skill-card-head"><span>SKILL / 02</span><span>STORY SYSTEM</span></div>
+            <div class="skill-glyph">剧</div>
+            <h3>漫剧剧本撰写与优化</h3>
+            <p>从故事方向、人物关系和连载引擎，到单集创作、逻辑审查与 AI 漫剧生产稿的一体化写作流程。</p>
+            <div class="skill-footer"><span>Story Bible</span><span>Episode</span><span>Production</span></div>
+          </article>
+
+          <article class="skill-card reveal" data-accent="green">
+            <div class="skill-card-head"><span>SKILL / 03</span><span>VISUAL DELIVERY</span></div>
+            <div class="skill-glyph">演</div>
+            <h3>Dashi PPT</h3>
+            <p>用主题化视觉系统生成可离线浏览、可编辑并可导出为 PPTX / PDF 的 HTML 演示文稿。</p>
+            <div class="skill-footer"><span>12 Themes</span><span>HTML</span><span>PPTX / PDF</span></div>
+          </article>
+        </div>
+        <a class="text-link reveal" href="https://github.com/Krit068" target="_blank" rel="noreferrer">
+          查看我的 GitHub <span>↗</span>
+        </a>
+      </section>
+
+      <section id="writing" class="section writing-section">
+        <div class="shell">
+          <div class="section-heading heading-row reveal">
+            <div><p class="kicker">04 / WRITING</p><h2>近期文章</h2></div>
+            <p>观察 AI 内容产品正在发生的变化，并把技术信号翻译为产品问题。</p>
+          </div>
+
+          <div class="article-grid">
+            <article class="article-card reveal">
+              <div class="article-meta"><span>AI PRODUCT REVIEW</span><time datetime="2026">2026</time></div>
+              <p class="article-index">01</p>
+              <h3>AI漫剧越来越多，平台怎么判断观众愿不愿意继续看</h3>
+              <p class="article-subtitle">从质量评估、冷启动到连续推荐，拆解平台如何识别真正能留住人的 AI 漫剧。</p>
+              <details>
+                <summary>阅读摘要 <span>＋</span></summary>
+                <p>播放量只说明内容被看见。角色一致性、剧情推进、声音表演和跨集留存，才决定平台是否值得继续分发。</p>
+              </details>
+            </article>
+
+            <article class="article-card article-card-dark reveal">
+              <div class="article-meta"><span>AI INTERACTIVE MEDIA</span><time datetime="2026">2026</time></div>
+              <p class="article-index">02</p>
+              <h3>当视频开始回应你，AI正在把观众变成故事里的角色</h3>
+              <p class="article-subtitle">当用户以角色身份进入 AI 生成的故事，视频就从内容变成了会回应的世界。</p>
+              <details>
+                <summary>阅读摘要 <span>＋</span></summary>
+                <p>开放叙事、实时视频世界与角色对话正在汇合。真正的产品机会，是让“看故事”变成“被故事回应”。</p>
+              </details>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section contact-section">
+        <div class="shell contact-shell">
+          <div class="contact-copy reveal">
+            <p class="kicker">05 / CONTACT</p>
+            <h2>Let’s build AI<br />that actually ships.</h2>
+            <p>如果你正在推进企业 AI 落地、智能体产品或新的 AI 原型，欢迎和我交流。</p>
+          </div>
+          <div class="contact-panel reveal">
+            <div class="contact-panel-head"><span>AVAILABLE FOR CONVERSATION</span><span class="status-dot"></span></div>
+            <a href="mailto:mornoxborn89@gmail.com">
+              <small>EMAIL</small><strong>mornoxborn89@gmail.com</strong><span>↗</span>
+            </a>
+            <a href="https://github.com/Krit068" target="_blank" rel="noreferrer">
+              <small>GITHUB</small><strong>github.com/Krit068</strong><span>↗</span>
+            </a>
+            <button class="copy-email" type="button" data-email="mornoxborn89@gmail.com">
+              <small>QUICK ACTION</small><strong>复制邮箱地址</strong><span>＋</span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer shell">
+      <span>© <span id="year">2026</span> 张文博</span>
+      <span>AI PRODUCT · BUILD / VALIDATE / SCALE</span>
+      <a href="#top">回到顶部 ↑</a>
+    </footer>
+
+    <div class="toast" role="status" aria-live="polite">邮箱已复制</div>
+  </body>
 </html>
